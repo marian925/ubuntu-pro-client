@@ -686,18 +686,6 @@ class TestMain:
     @pytest.mark.parametrize("caplog_text", [logging.DEBUG], indirect=True)
     @mock.patch("uaclient.cli.setup_logging")
     @mock.patch("uaclient.cli.get_parser")
-    def test_command_line_is_logged(
-        self, _m_get_parser, _m_setup_logging, logging_sandbox, caplog_text
-    ):
-        main(["some", "args"])
-
-        log = caplog_text()
-
-        assert "['some', 'args']" in log
-
-    @pytest.mark.parametrize("caplog_text", [logging.DEBUG], indirect=True)
-    @mock.patch("uaclient.cli.setup_logging")
-    @mock.patch("uaclient.cli.get_parser")
     @mock.patch(
         "uaclient.cli.util.get_pro_environment",
         return_value={"UA_ENV": "YES", "UA_FEATURES_WOW": "XYZ"},

@@ -1986,6 +1986,12 @@ def main(sys_argv=None):
     setup_logging(console_level, log_level, cfg.log_file)
 
     logging.debug("Executed with sys.argv: %r" % sys_argv)
+    args_to_log = args.__dict__.copy()
+    args_to_log.pop("action", None)
+    logging.debug(
+        "parsed arguments",
+        **pro_log.with_extra(**args_to_log)
+    )
 
     with util.disable_log_to_console():
         cfg.warn_about_invalid_keys()

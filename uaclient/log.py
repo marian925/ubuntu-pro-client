@@ -1,9 +1,32 @@
 import json
 import logging
 from collections import OrderedDict
-from typing import Any, Dict  # noqa: F401
+from typing import Any, Dict, TypeVar  # noqa: F401
 
 from uaclient import util
+
+REDACT_FIELDS = {"token"}
+
+
+def redact_value(v):
+    if isinstance(v, dict):
+        return redact_dict_fields(v)
+    elif isinstance(v, str):
+        return util.redact_sensitive_logs(v)
+    elif isinstance(v, list):
+        return [redact_value(item) for item in v]
+    else:
+        return v
+
+
+def redact_dict_fields(d: Dict) -> Dict:
+    new_d = {}  # type: Dict[Any, Any]
+    for k, v in d.items():
+        if k in REDACT_FIELDS:
+            new_d[k] = "REDACTED"
+        else:
+            new_d[k] = redact_value(v)
+    return new_d
 
 
 class RedactionFilter(logging.Filter):
@@ -11,6 +34,8 @@ class RedactionFilter(logging.Filter):
 
     def filter(self, record: logging.LogRecord):
         record.msg = util.redact_sensitive_logs(str(record.msg))
+        if hasattr(record, "extra") and isinstance(record.extra, dict):
+            record.extra = redact_dict_fields(record.extra)
         return True
 
 
@@ -58,3 +83,16 @@ class JsonArrayFormatter(logging.Formatter):
 
         local_log_record["extra"] = extra_message_dict
         return json.dumps(list(local_log_record.values()))
+
+
+def with_extra(**kwargs):
+    """
+    A helper for including extra fields in a logging statement.
+
+    Use like this:
+    logging.debug("something happened!", **with_extra(thing_name="something"))
+
+    That will result in a log line something like:
+    ["2023-04-14T05:40:33.072", "DEBUG", "logger", "function", 123, "something happened!", {"thing_name": "something"}]  # noqa: E501
+    """
+    return {"extra": {"extra": kwargs}}
