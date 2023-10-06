@@ -61,7 +61,7 @@ def update_motd_messages(cfg: UAConfig) -> bool:
     if not _is_attached(cfg).is_attached:
         return False
 
-    LOG.debug("Updating Ubuntu Pro messages for MOTD.")
+    LOG.info("Updating Ubuntu Pro messages for MOTD.")
     motd_contract_status_msg_path = os.path.join(
         cfg.data_dir, "messages", MOTD_CONTRACT_STATUS_FILE_NAME
     )
