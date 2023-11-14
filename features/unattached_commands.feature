@@ -346,7 +346,7 @@ Feature: Command behaviour when unattached
         """
         Then stdout matches regexp:
         """
-        "WARNING", "ubuntupro.apt", "fail", \d+, "Failed to fetch ESM Apt Cache item: https://esm.ubuntu.com/apps/ubuntu/dists/<release>-apps-security/InRelease", {}]
+        WARNING|ubuntupro.apt|fail|\d+|Failed to fetch ESM Apt Cache item: https://esm.ubuntu.com/apps/ubuntu/dists/<release>-apps-security/InRelease|{}
         """
         When I run `ls /var/crash/` with sudo
         Then stdout does not contain substring:
