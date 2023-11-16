@@ -153,6 +153,7 @@ Feature: Proxy configuration
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     @slow
     Scenario Outline: Attach command when proxy is configured
@@ -341,6 +342,7 @@ Feature: Proxy configuration
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     @slow
     Scenario Outline: Attach command when authenticated proxy is configured
@@ -528,6 +530,7 @@ Feature: Proxy configuration
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     @slow
     Scenario Outline: Attach command when authenticated proxy is configured manually for uaclient
@@ -601,6 +604,7 @@ Feature: Proxy configuration
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     @slow
     Scenario Outline: Attach command when proxy is configured globally
@@ -760,6 +764,7 @@ Feature: Proxy configuration
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     @slow
     Scenario Outline: Attach command when authenticated proxy is configured globally
@@ -857,6 +862,7 @@ Feature: Proxy configuration
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     @slow
     Scenario Outline: Get warning when configuring global or uaclient proxy
@@ -1008,6 +1014,7 @@ Feature: Proxy configuration
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     @slow
     Scenario Outline: apt_http(s)_proxy still works
@@ -1143,6 +1150,7 @@ Feature: Proxy configuration
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     @slow
     Scenario: Enable realtime kernel through proxy on a machine with no internet
@@ -1295,3 +1303,4 @@ Feature: Proxy configuration
            | focal   | lxd-vm       |
            | jammy   | lxd-vm       |
            | mantic  | lxd-vm       |
+           | noble   | lxd-vm       |

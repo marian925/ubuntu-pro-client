@@ -33,4 +33,7 @@ Feature: Full Auto-Attach Endpoint
            | jammy   | aws.pro      |
            | jammy   | azure.pro    |
            | jammy   | gcp.pro      |
+           | noble   | aws.pro      |
+           | noble   | azure.pro    |
+           | noble   | gcp.pro      |
            

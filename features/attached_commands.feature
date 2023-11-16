@@ -55,6 +55,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | jammy   | lxd-container |
            | jammy   | wsl           |
            | mantic  | lxd-container |
+           | noble   | lxd-container |
 
     Scenario Outline: Disable command on an attached machine
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -112,6 +113,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | bionic  | lxd-container | Try anbox-cloud, cc-eal, cis, esm-apps, esm-infra, fips, fips-preview,\nfips-updates, landscape, livepatch, realtime-kernel, ros, ros-updates. |
            | focal   | lxd-container | Try anbox-cloud, cc-eal, esm-apps, esm-infra, fips, fips-preview, fips-updates,\nlandscape, livepatch, realtime-kernel, ros, ros-updates, usg. |
            | jammy   | lxd-container | Try anbox-cloud, cc-eal, esm-apps, esm-infra, fips, fips-preview, fips-updates,\nlandscape, livepatch, realtime-kernel, ros, ros-updates, usg. |
+           | noble   | lxd-container | Try anbox-cloud, cc-eal, esm-apps, esm-infra, fips, fips-preview, fips-updates,\nlandscape, livepatch, realtime-kernel, ros, ros-updates, usg. |
 
     Scenario Outline: Attached disable with json format
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -166,6 +168,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | bionic  | lxd-container | anbox-cloud, cc-eal, cis, esm-apps, esm-infra, fips, fips-preview,\nfips-updates, landscape, livepatch, realtime-kernel, ros, ros-updates. |
            | focal   | lxd-container | anbox-cloud, cc-eal, esm-apps, esm-infra, fips, fips-preview, fips-updates,\nlandscape, livepatch, realtime-kernel, ros, ros-updates, usg. |
            | jammy   | lxd-container | anbox-cloud, cc-eal, esm-apps, esm-infra, fips, fips-preview, fips-updates,\nlandscape, livepatch, realtime-kernel, ros, ros-updates, usg. |
+           | noble   | lxd-container | anbox-cloud, cc-eal, esm-apps, esm-infra, fips, fips-preview, fips-updates,\nlandscape, livepatch, realtime-kernel, ros, ros-updates, usg. |
 
     Scenario Outline: Attached detach in an ubuntu machine
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -228,6 +231,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | focal   | wsl           |
            | jammy   | lxd-container |
            | jammy   | wsl           |
+           | noble   | lxd-container |
 
     Scenario Outline: Attached auto-attach in a ubuntu machine
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -251,6 +255,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | xenial  | lxd-container |
            | jammy   | lxd-container |
            | mantic  | lxd-container |
+           | noble   | lxd-container |
 
     Scenario Outline: Attached show version in a ubuntu machine
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -271,6 +276,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | xenial  | lxd-container |
            | jammy   | lxd-container |
            | mantic  | lxd-container |
+           | noble   | lxd-container |
 
     Scenario Outline: Attached status in a ubuntu machine with feature overrides
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -339,6 +345,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | xenial  | lxd-container |
            | jammy   | lxd-container |
            | mantic  | lxd-container |
+           | noble   | lxd-container |
 
     Scenario Outline: Attached enable when reboot required
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -363,6 +370,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     Scenario Outline: Help command on an attached machine
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -604,6 +612,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | release | machine_type  |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     Scenario Outline: Run timer script on an attached machine
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -680,6 +689,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | focal   | lxd-container |
            | jammy   | lxd-container |
            | mantic  | lxd-container |
+           | noble   | lxd-container |
 
     Scenario Outline: Run timer script to valid machine activity endpoint
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -750,6 +760,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     Scenario Outline: Run timer script to valid machine activity endpoint
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -766,6 +777,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     Scenario Outline: Disable with purge does not work with assume-yes
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -781,6 +793,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |
 
     Scenario Outline: Disable with purge works and purges repo services not involving a kernel
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -824,6 +837,7 @@ Feature: Command behaviour when attached to an Ubuntu Pro subscription
            | bionic  | lxd-vm       |
            | focal   | lxd-vm       |
            | jammy   | lxd-vm       |
+           | noble   | lxd-vm       |
 
     @slow
     Scenario Outline: Disable and purge fips

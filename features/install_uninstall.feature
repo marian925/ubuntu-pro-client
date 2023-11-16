@@ -12,6 +12,7 @@ Feature: Pro Install and Uninstall related tests
            | focal   | lxd-container |
            | jammy   | lxd-container |
            | mantic  | lxd-container |
+           | noble   | lxd-container |
 
     @uses.config.contract_token
     Scenario Outline: Purge package after attaching it to a machine
@@ -81,3 +82,4 @@ Feature: Pro Install and Uninstall related tests
            | bionic  | lxd-container |
            | focal   | lxd-container |
            | jammy   | lxd-container |
+           | noble   | lxd-container |

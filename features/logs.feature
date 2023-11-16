@@ -25,6 +25,7 @@ Feature: Logs in Json Array Formatter
           | focal   | lxd-container |
           | jammy   | lxd-container |
           | mantic  | lxd-container |
+          | noble   | lxd-container |
 
     Scenario Outline: Non-root user and root user log files are different
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -55,6 +56,7 @@ Feature: Logs in Json Array Formatter
           | focal   | lxd-container |
           | jammy   | lxd-container |
           | mantic  | lxd-container |
+          | noble   | lxd-container |
 
     Scenario Outline: Non-root user log files included in collect logs
         Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -79,3 +81,4 @@ Feature: Logs in Json Array Formatter
           | focal   | lxd-container |
           | jammy   | lxd-container |
           | mantic  | lxd-container |
+          | noble   | lxd-container |
