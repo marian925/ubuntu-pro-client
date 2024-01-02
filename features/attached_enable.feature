@@ -13,6 +13,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
     Then I will see the following on stdout:
       """
       One moment, checking your subscription first
+      Configuring APT access to CC EAL2
       Updating CC EAL2 package lists
       (This will download more than 500MB of packages, so may take some time.)
       Updating standard Ubuntu package lists
@@ -34,6 +35,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
     Then I will see the following on stdout:
       """
       One moment, checking your subscription first
+      Configuring APT access to CC EAL2
       Updating CC EAL2 package lists
       Skipping installing packages: ubuntu-commoncriteria
       CC EAL2 access enabled
@@ -105,6 +107,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
     Then stdout matches regexp:
       """
       One moment, checking your subscription first
+      Configuring APT access to Ubuntu Pro: ESM Infra
       Updating Ubuntu Pro: ESM Infra package lists
       Ubuntu Pro: ESM Infra enabled
       """
@@ -218,6 +221,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
       One moment, checking your subscription first
       Ubuntu Pro: ESM Infra is already enabled.
       See: sudo pro status
+      Could not enable Ubuntu Pro: ESM Infra.
       """
     When I run `apt-cache policy` with sudo
     Then apt-cache policy for the following url has priority `510`
@@ -255,6 +259,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
       """
       One moment, checking your subscription first
       Cannot install Livepatch on a container.
+      Could not enable Livepatch.
       """
 
     Examples: Un-supported services in containers
@@ -287,6 +292,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
       One moment, checking your subscription first
       This subscription is not entitled to Ubuntu Pro: ESM Apps
       View your subscription at: https://ubuntu.com/pro/dashboard
+      Could not enable Ubuntu Pro: ESM Apps.
       """
 
     Examples: not entitled services
@@ -303,6 +309,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
     Then I will see the following on stdout:
       """
       One moment, checking your subscription first
+      Configuring APT access to CIS Audit
       Updating CIS Audit package lists
       Skipping installing packages: usg-cisbenchmark usg-common
       CIS Audit access enabled
@@ -313,6 +320,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
     Then I will see the following on stdout:
       """
       One moment, checking your subscription first
+      Configuring APT access to CIS Audit
       Updating CIS Audit package lists
       Updating standard Ubuntu package lists
       Installing CIS Audit packages
@@ -390,6 +398,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
       From Ubuntu 20.04 onward 'pro enable cis' has been
       replaced by 'pro enable usg'. See more information at:
       https://ubuntu.com/security/certifications/docs/usg
+      Configuring APT access to CIS Audit
       Updating CIS Audit package lists
       Updating standard Ubuntu package lists
       Installing CIS Audit packages
@@ -454,10 +463,10 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
       CIS audit scan completed
       """
 
-        Examples: cis service
-           | release | machine_type  |
-           | focal   | lxd-container |
-           | focal   | wsl           |     
+    Examples: cis service
+      | release | machine_type  |
+      | focal   | lxd-container |
+      | focal   | wsl           |
 
   Scenario Outline: Attached enable of usg service in a focal machine
     Given a `<release>` `<machine_type>` machine with ubuntu-advantage-tools installed
@@ -466,6 +475,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
     Then I will see the following on stdout:
       """
       One moment, checking your subscription first
+      Configuring APT access to Ubuntu Security Guide
       Updating Ubuntu Security Guide package lists
       Ubuntu Security Guide enabled
       Visit https://ubuntu.com/security/certifications/docs/usg for the next steps
@@ -484,6 +494,7 @@ Feature: Enable command behaviour when attached to an Ubuntu Pro subscription
       From Ubuntu 20.04 onward 'pro enable cis' has been
       replaced by 'pro enable usg'. See more information at:
       https://ubuntu.com/security/certifications/docs/usg
+      Configuring APT access to CIS Audit
       Updating CIS Audit package lists
       Updating standard Ubuntu package lists
       Installing CIS Audit packages
