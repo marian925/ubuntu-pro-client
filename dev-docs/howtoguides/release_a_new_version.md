@@ -10,7 +10,17 @@ The release process for ubuntu-advantage-tools has three overarching steps/goals
 
 Generally speaking, these steps happen in order, but there is some overlap. Also we may backtrack if issues are found part way through the process.
 
-An average release should take somewhere between 10 and 14 calendar days if things go smoothly, starting at the decision to release and ending at the new version being available in all supported Ubuntu releases. Note that it is not 2 weeks of full time work. Most of the time is spent waiting for review or sitting in proposed.
+Releases are scheduled to take 6 weeks, following the schedule below:
+- Week 1
+  - pro-client maintainer sets up the new version
+  - Sponsor from Canonical Server team reviews
+- Weeks 2 and 3: SRU review ending in upload to devel and -proposed
+- Week 4: Sit in -proposed for 7 days
+- Week 5: This week is allocated as a buffer in case any of the previous steps take longer than expected
+- Week 6: Release to -updates
+
+> **Note**
+> In practice, the Sponsor and SRU reviews tend to overlap during the first three weeks.
 
 > **Warning**
 > If the release contains any change listed in the [Early Review Sign-Off list](../references/early_review_signoff.md), make sure it was properly reviewed *before* starting the release process. Ideally they would be reviewed even before implementation, but if some feature is in the list and didn't get a proper review, now is the time to do so.
@@ -38,6 +48,56 @@ If this is your first time releasing ubuntu-advantage-tools, you'll need to do t
   sudo apt install ppa-dev-tools
   ```
   When running `ppa` for the first time, there will be another round of launchpad authorization to be performed.
+
+## Git branch release strategy
+This diagram presents the branches that happen during the process of releasing version 42.
+```mermaid
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 2}} }%%
+gitGraph LR:
+  commit id: "v41-feature1"
+  branch review-v42 order: 1
+  checkout main
+  commit id: "v41-feature2" tag: "41"
+  checkout review-v42
+  merge main type: HIGHLIGHT
+  checkout main
+  commit id: "v42-feature1"
+  commit id: "v42-feature2" tag: "42-rc"
+
+  branch next-v43 order: 3
+  commit id: "v43-feature1"
+  commit id: "v43-feature2"
+  checkout main
+  commit id: "v42-fixup1"
+  checkout next-v43
+  commit id: "v43-feature3"
+  checkout main
+  commit id: "v42-fixup2" tag: "42"
+  checkout review-v42
+  merge main id: "Release PR" type:HIGHLIGHT
+  checkout main
+  merge next-v43
+```
+
+`main` is the only long-lived branch.
+
+When we reach a point in `main` where we are ready to release version 42, we do the following:
+* Tag that commit as `42-rc`
+* Create a branch called `review-v42` from the `41` tag
+* Create a draft PR in GitHub from `main` targeting `review-v42`
+* Create a branch called `next-v43` from the `42-rc` tag
+* For any open PRs that are not to be included in version 42, change their target to `next-v43`
+  * Any new PRs for ongoing development during the version 42 release process must target `next-v43`
+* Sponsor and SRU review uses the `main`->`review-v42` PR
+  * Feedback that requires changes are added to `main`
+* When version 42 is approved, the tip of `main` is tagged `42` and the Sponsor uploads using that commit
+  * The `review-v42` branch is now deleted along with the `main`->`review-v42` PR
+* After version 42 is released, `next-v43` is rebased on top of `main` and `next-v43` is deleted
+* Development continues on `main` until we are ready to begin releasing version 43
+
+
+
+## 1. Set up `review` and `next` branches
 
 ## I. Preliminary/staging release to team infrastructure
 1. Create a release PR:
@@ -233,3 +293,4 @@ If this is your first time releasing ubuntu-advantage-tools, you'll need to do t
 2. Bring in any changes that were made to the release branch into `main` via PR (e.g., changelog edits).
 3. Move any scripts added in `sru/` to a new folder in `sru/_archive` for the release.
 4. Tell CPC that there is a new version of `ubuntu-advantage-tools` in -updates for all series.
+
