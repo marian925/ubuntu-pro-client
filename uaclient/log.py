@@ -1,10 +1,9 @@
-import abc
 import json
 import logging
 import os
 import pathlib
 from collections import OrderedDict
-from typing import Any, Dict, List, Tuple, Union  # noqa: F401
+from typing import Any, Dict, List, Union  # noqa: F401
 
 from uaclient import defaults, system, util
 from uaclient.config import UAConfig
@@ -18,10 +17,9 @@ class RedactionFilter(logging.Filter):
         return True
 
 
-class BaseProFormatter(logging.Formatter, metaclass=abc.ABCMeta):
-    """Formatter class that collects all the fields we care about in the
-    correct order and calls a subclass defined formatter function to turn
-    it into a string.
+class JsonArrayFormatter(logging.Formatter):
+    """Json Array Formatter for our logging mechanism
+    Custom made for Pro logging needs
     """
 
     default_time_format = "%Y-%m-%dT%H:%M:%S"
@@ -33,7 +31,7 @@ class BaseProFormatter(logging.Formatter, metaclass=abc.ABCMeta):
         "funcName",
         "lineno",
         "message",
-    )  # type: Tuple[str, ...]
+    )
 
     def format(self, record: logging.LogRecord) -> str:
         record.message = record.getMessage()
@@ -62,42 +60,7 @@ class BaseProFormatter(logging.Formatter, metaclass=abc.ABCMeta):
             local_log_record[field] = value
 
         local_log_record["extra"] = extra_message_dict
-        return self.subformatter(local_log_record)
-
-    @abc.abstractmethod
-    def subformatter(self, d: Dict[str, Any]) -> str:
-        pass
-
-
-class JsonArrayFormatter(BaseProFormatter):
-    def subformatter(self, d: Dict[str, Any]) -> str:
-        return json.dumps(list(d.values()))
-
-
-class JournaldFormatter(BaseProFormatter):
-    """Logging to journald in json format is considered unideal
-    This formatter includes all the same fields, separated by `|`
-    characters to maintain structure
-    """
-
-    required_fields = (
-        # no need for asctime because journald already has the time
-        "levelname",
-        "name",
-        "funcName",
-        "lineno",
-        "message",
-    )
-
-    def subformatter(self, d: Dict[str, Any]) -> str:
-        values = []
-        for v in d.values():
-            if isinstance(v, str):
-                values.append(v)
-            else:
-                # json format only for non string types
-                values.append(json.dumps(v))
-        return "|".join(values)
+        return json.dumps(list(local_log_record.values()))
 
 
 def get_user_or_root_log_file_path() -> str:
@@ -141,7 +104,7 @@ def setup_journald_logging():
     logger.setLevel(logging.INFO)
     logger.addFilter(RedactionFilter())
     console_handler = logging.StreamHandler()
-    console_handler.setFormatter(JournaldFormatter())
+    console_handler.setFormatter(JsonArrayFormatter())
     console_handler.setLevel(logging.INFO)
     logger.addHandler(console_handler)
 
