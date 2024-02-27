@@ -27,7 +27,7 @@ from uaclient import (
     lock,
 )
 from uaclient import log as pro_log
-from uaclient import messages, security_status
+from uaclient import messages, secret_manager, security_status
 from uaclient import status as ua_status
 from uaclient import timer, util, version
 from uaclient.api.api import call_api
@@ -1283,6 +1283,7 @@ def action_attach(args, *, cfg, **kwargs):
         enable_services_override = None
     elif args.token:
         token = args.token
+        secret_manager.secrets.add_secret(token)
         enable_services_override = None
     else:
         try:
@@ -1293,7 +1294,8 @@ def action_attach(args, *, cfg, **kwargs):
             raise exceptions.AttachInvalidConfigFileError(
                 config_name=args.attach_config.name, error=e.msg
             )
-
+        # TODO: This is the token that shuold be saved as a secret and used
+        #      which shuould be redacted from the logs
         token = attach_config.token
         enable_services_override = attach_config.enable_services
 
@@ -1670,6 +1672,7 @@ def setup_logging(log_level, log_file=None, logger=None):
         logger = logging.getLogger("ubuntupro")
     logger.setLevel(log_level)
     logger.addFilter(pro_log.RedactionFilter())
+    logger.addFilter(pro_log.SecretRedactionFilter())
 
     # Clear all handlers, so they are replaced for this logger
     logger.handlers = []

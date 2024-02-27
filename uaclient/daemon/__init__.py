@@ -48,7 +48,7 @@ def setup_logging(console_level, log_level, log_file, logger=None):
     logger.setLevel(log_level)
 
     logger.handlers = []
-    logger.addFilter(pro_log.RedactionFilter())
+    logger.addFilter(pro_log.SecretRedactionFilter())
 
     console_handler = logging.StreamHandler(sys.stderr)
     console_handler.setFormatter(logging.Formatter("%(message)s"))
