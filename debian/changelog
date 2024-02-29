@@ -1,3 +1,9 @@
+ubuntu-advantage-tools (31.2~18.04) bionic; urgency=medium
+
+  * Backport new upstream release (LP: #2048921)
+
+ -- Grant Orndorff <grant.orndorff@canonical.com>  Thu, 29 Feb 2024 09:03:11 -0500
+
 ubuntu-advantage-tools (31.2) noble; urgency=medium
 
   * properly rename logrotate conffile to avoid duplicate confiles, keep user changes
